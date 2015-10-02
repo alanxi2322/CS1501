@@ -1,20 +1,53 @@
 public class Trie {
     private TrieNode root;
 
-    public Trie()
-    {
+    public Trie() {
         root = new TrieNode();
     }
 
-    public TrieNode getNode(String s)
+    public TrieNode getNode(String s) {
+        TrieNode node = root;
+
+        for (int i = 0; i < s.length(); i++) {
+            int index = findIndex(s.charAt(i));
+
+            if (index == -1)
+                return null;
+
+            node = root.children[index];
+        }
+
+        return node;
+    }
+
+    public void addWord(String word) {
+        TrieNode node = root;
+
+        for (int i = 0; i < word.length(); i++) {
+            int index = findIndex(word.charAt(i));
+
+            if(index == -1)
+            {
+                System.out.println("Invalid character in dictionary.txt! Exiting");
+                System.exit(3);
+            }
+
+            if(node.children[index] == null)
+                node.children[index] = new TrieNode();
+
+            node = node.children[index];
+        }
+
+        node.isWord = true;
+    }
+
+    public void showWords()
     {
         TrieNode node = root;
 
-        for(int i = 0; i < s.length(); i++)
+        for(int i = 0; i < 42; i++)
         {
-            int index = findIndex(s.charAt(i));
-
-            
+            //if(node.children[i] != null)
         }
     }
 
@@ -23,47 +56,38 @@ public class Trie {
      *
      * @param c character to look for
      * @return position in the array
+     * or -1 in invalid character
      */
-    private int findIndex(char c)
-    {
+    private int findIndex(char c) {
         c = Character.toLowerCase(c);
 
-        if(Character.isLetter(c))
-        {
-            return (int)c -  97;
-        }
-        else if(Character.isDigit(c))
-        {
-            return 25 + (int)c - 48;
-        }
-        else
-        {
-            switch(c)
-            {
+        if (Character.isLetter(c)) {
+            return (int) c - 97;
+        } else if (Character.isDigit(c)) {
+            return 25 + (int) c - 48;
+        } else {
+            switch (c) {
                 case '!':
                     return 36;
-                    break;
 
                 case '@':
                     return 37;
-                    break;
 
                 case '$':
                     return 38;
-                    break;
 
                 case '%':
                     return 39;
-                    break;
 
                 case '&':
                     return 40;
-                    break;
 
                 case '*':
                     return 41;
-                    break;
             }
         }
+
+        // invalid character
+        return -1;
     }
 }
