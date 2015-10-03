@@ -1,0 +1,18 @@
+Name: Lun Xi 
+
+Lecture section: T/Th 09:30-10:45AM
+
+Recitation day and time: Friday 11:00-11:50 AM
+
+Assignment #: 1
+
+Program due date: 2 Oct 12:00PM
+
+Handed in date: 2 Oct 
+
+Source code file names: Main.java , Trie.java, TrieNode.java, pwcheck.java 
+
+Does your program run without error? No
+
+I did not complete the code, I really did not have enough time, i know this is not an excuse 
+
