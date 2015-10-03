@@ -1,8 +1,11 @@
 public class Trie {
     private TrieNode root;
+    private String myDictionary;
+    public String allowedCharacters;
 
     public Trie() {
         root = new TrieNode();
+        allowedCharacters = "abcdefghijklmnopqrstuvwxyz!@$%&*";
     }
 
     public TrieNode getNode(String s) {
@@ -24,15 +27,14 @@ public class Trie {
         TrieNode node = root;
 
         for (int i = 0; i < word.length(); i++) {
-            int index = findIndex(word.charAt(i));
+            int index = allowedCharacters.indexOf(word.charAt(i));
 
-            if(index == -1)
-            {
+            if (index == -1) {
                 System.out.println("Invalid character in dictionary.txt! Exiting");
                 System.exit(3);
             }
 
-            if(node.children[index] == null)
+            if (node.children[index] == null)
                 node.children[index] = new TrieNode();
 
             node = node.children[index];
@@ -41,13 +43,29 @@ public class Trie {
         node.isWord = true;
     }
 
-    public void showWords()
-    {
-        TrieNode node = root;
+    public String getWords() {
+        myDictionary = "";
+        getWords(root, myDictionary);
 
-        for(int i = 0; i < 42; i++)
-        {
-            //if(node.children[i] != null)
+        return myDictionary;
+    }
+
+    private void getWords(TrieNode node, String prefix) {
+        if (node == null)
+            return;
+
+        for (int i = 0; i < 42; i++) {
+            if (node.children[i] != null) {
+                if (node.children[i].isWord == true) {
+                    myDictionary += prefix;
+                    //System.out.print(prefix);
+                    myDictionary += allowedCharacters.charAt(i);
+                    //System.out.print(allowedCharacters.charAt(i));
+                    myDictionary += "\n";
+                    //System.out.println("");
+                }
+                getWords(node.children[i], prefix + allowedCharacters.charAt(i));
+            }
         }
     }
 

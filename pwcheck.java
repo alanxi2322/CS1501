@@ -2,6 +2,9 @@ import java.io.*;
 
 public class pwcheck {
     public static final String DICTIONARY_FILE = "dictionary.txt";
+    public static final String MY_DICTIONARY_FILE = "my_dictionary.txt";
+    public static final String GOOD_PASSWORDS_FILE = "good_passwords.txt";
+    public static final String allowedCharacters = "abcdefghijklmnopqrstuvwxyz!@$%&*";
 
     public static void main(String[] args) {
         boolean generatePasswords;
@@ -32,7 +35,28 @@ public class pwcheck {
             System.exit(2);
         }
 
-        dlb.showWords();
+        try {
+            if (generatePasswords == true) {
+                // write full list of words to text file
+                File file = new File(MY_DICTIONARY_FILE);
 
+                // create file if needed
+                if (!file.exists())
+                    file.createNewFile();
+
+                BufferedWriter writer = new BufferedWriter((new FileWriter(file.getAbsoluteFile())));
+
+                writer.write(dlb.getWords());
+                writer.close();
+            }
+
+            // find all good passwords
+            String goodPasswords = "";
+
+        }
+        catch (Exception e)
+        {
+            System.out.println("Some exception occured: " + e.getMessage());
+        }
     }
 }
